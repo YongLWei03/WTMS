@@ -19,18 +19,22 @@ INSERT INTO `blog` VALUES ('5', 'test 4', 'test 4');
 CREATE TABLE wf_user (
     id INT NOT NULL AUTO_INCREMENT,
     username VARCHAR(50),
-    password VARCHAR(50),
+    pwd VARCHAR(50),
+    worknum VARCHAR(50),
     email VARCHAR(100),
     mobile VARCHAR(20),
     avatar VARCHAR(200),
-    full_name VARCHAR(100),
+    name VARCHAR(100),
+    sex char(1),
+    departmentId char(1),
+    positionId VARCHAR(10),
     status INT DEFAULT '1' NOT NULL,
     created_at TIMESTAMP NULL,
     updated_at TIMESTAMP NULL,
     deleted_at TIMESTAMP NULL,
     PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8;
-  
+
 CREATE TABLE wf_role (
     id INT NOT NULL AUTO_INCREMENT,
     role_name VARCHAR(50),
@@ -42,7 +46,7 @@ CREATE TABLE wf_role (
     PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8;
   
-CREATE TABLE sec_permission (
+CREATE TABLE wf_permission (
     id INT NOT NULL AUTO_INCREMENT,
     permission VARCHAR(50) NOT NULL,
     description VARCHAR(200) NOT NULL,
@@ -53,7 +57,7 @@ CREATE TABLE sec_permission (
     PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8;
   
-CREATE TABLE sec_user_role (
+CREATE TABLE wf_user_role (
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
     role_id INT NOT NULL,
@@ -66,3 +70,18 @@ CREATE TABLE wf_role_permission (
     permission_id INT NOT NULL,
     PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE wf_department (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    PRIMARY KEY (id)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+
+CREATE TABLE wf_position (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    PRIMARY KEY (id)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8;
+

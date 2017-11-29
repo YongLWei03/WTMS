@@ -1,4 +1,4 @@
-package com.demo.shiro;
+package com.wtms.shiro;
 
 import java.util.Date;
 import java.util.List;
@@ -26,7 +26,7 @@ public class AuthorizationRealm extends AuthorizingRealm {
 	 * @return null or 授权信息
 	 */
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection arg0) {
+	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		SysAdmin userInPrincipal = (SysAdmin) principals.getPrimaryPrincipal();
 	    //根据用户获取权限
 	    List<String> stringPermissions = AdminService.getPermissions(userInPrincipal.getId());
