@@ -3,6 +3,7 @@ package com.wtms.shiro;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
@@ -14,8 +15,11 @@ import com.google.common.collect.Multimap;
 import com.jfinal.log.Log;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
+import com.wtms.common.model.Role;
+import com.wtms.service.RoleService;
 
 public class ShiroPathMatchFilter extends AccessControlFilter {
+	static RoleService roleService = new RoleService();
 	private static final Log log =  Log.getLog(ShiroPathMatchFilter.class);  
     private static Multimap<String,String> allPermissions = ArrayListMultimap.create();  
     private static List<String> allRoles = new ArrayList<String>();
@@ -25,8 +29,8 @@ public class ShiroPathMatchFilter extends AccessControlFilter {
         log.info("start initializing permission maps.");  
         // 缓存所有角色  
         allRoles.clear();  
-        List<SecRole> secRoles =SecRole.dao.findAll();  
-        for(SecRole secRole:secRoles){  
+        List<Role> roles =roleService.findAll();  
+        for(Role secRole:roles){  
             allRoles.add(secRole.getStr("role_name"));  
         }  
         // 缓存所有权限  

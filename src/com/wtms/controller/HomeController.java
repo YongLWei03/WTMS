@@ -7,15 +7,17 @@ import org.apache.shiro.subject.Subject;
 
 import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
+import com.jfinal.kit.HttpKit;
 import com.wtms.bean.MessageBean;
 
 public class HomeController extends Controller{
 	
 	public void login() {
-		if(Boolean.FALSE.equals(validateCaptcha("captcha"))) {
-			renderJson(new MessageBean().setCode("1").setMessage("验证码错误"));
-			return;
-		}
+//		if(Boolean.FALSE.equals(validateCaptcha("captcha"))) {
+//			renderJson(new MessageBean().setCode("1").setMessage("验证码错误"));
+//			return;
+//		}
+//		String jsonStr = HttpKit.readData(getRequest());
 		String username = getPara("username");
 		String password = HashKit.md5(getPara("password"));
 		Subject subject = SecurityUtils.getSubject();
