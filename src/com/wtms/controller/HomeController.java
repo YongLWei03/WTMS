@@ -9,8 +9,11 @@ import com.jfinal.core.Controller;
 import com.jfinal.kit.HashKit;
 import com.jfinal.kit.HttpKit;
 import com.wtms.bean.MessageBean;
+import com.wtms.common.model.User;
+import com.wtms.service.UserService;
 
 public class HomeController extends Controller{
+	static UserService userService = new UserService();
 	
 	public void login() {
 //		if(Boolean.FALSE.equals(validateCaptcha("captcha"))) {
@@ -26,7 +29,8 @@ public class HomeController extends Controller{
 			subject.login(token);
 			renderJson(new MessageBean().setCode("1").setMessage("登录成功"));
 		} catch (AuthenticationException e) {
-			 renderJson(new MessageBean().setCode("0").setMessage("登录失败"));
+			System.out.println(e.getMessage());
+			renderJson(new MessageBean().setCode("0").setMessage("登录失败"));
 		}
 	}
 	

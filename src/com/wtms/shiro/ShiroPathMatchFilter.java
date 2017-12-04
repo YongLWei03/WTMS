@@ -36,29 +36,13 @@ public class ShiroPathMatchFilter extends AccessControlFilter {
         // 缓存所有权限  
         allPermissions.clear();  
         List<Record> rolePermissions = Db.find("select r.role_name,p.permission " +  
-                "from sec_role r,sec_permission p,sec_role_permission rp " +  
+                "from wf_role r,wf_permission p,wf_role_permission rp " +  
                 "where rp.role_id=r.id and rp.permission_id=p.id and permission is not null ");  
         for(Record rolePermission :rolePermissions){  
             allPermissions.put(rolePermission.getStr("role_name"),rolePermission.getStr("permission"));  
         }  
         log.info("finished permissions map with entries:" + allPermissions.size());  
-    }  
-  
-    public boolean isAccessAllowed(Subject subject,String path){  
-        if(allPermissions.isEmpty()){  
-            initUrlMaps();  
-        }  
-        for(String role : allRoles){  
-            if(subject.hasRole(role)){  
-                for(String url:allPermissions.get(role)){  
-                    if(pathsMatch(url, path)){  
-                        return true;  
-                    }  
-                }  
-            }  
-        }  
-        return false;  
-    }  
+    } 
     
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object o) throws Exception {
@@ -82,7 +66,7 @@ public class ShiroPathMatchFilter extends AccessControlFilter {
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		log.info("onAccessDenied");  
         setLoginUrl("/auth/login");  
-        redirectToLogin(request,response);  
+//        redirectToLogin(request,response);  
         return false;  
 	}
 

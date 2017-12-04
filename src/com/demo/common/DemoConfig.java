@@ -1,7 +1,7 @@
 package com.demo.common;
 
 import com.demo.blog.BlogController;
-import com.demo.common.model._MappingKit;
+import com.wtms.common.model._MappingKit;
 import com.demo.index.IndexController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -80,9 +80,12 @@ public class DemoConfig extends JFinalConfig {
 		
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
+		arp.setShowSql(true);
+		arp.setDevMode(true);
 		// 所有映射在 MappingKit 中自动化搞定
 		_MappingKit.mapping(arp);
 		me.add(arp);
+		
 	}
 	
 	/**

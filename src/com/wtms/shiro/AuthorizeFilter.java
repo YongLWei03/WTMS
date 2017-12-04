@@ -16,7 +16,7 @@ public class AuthorizeFilter extends AuthorizationFilter {
 
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object o) throws Exception {
-		/*//-----------------用户验证------------------
+		//-----------------用户验证------------------
 	    Subject currentUser = getSubject(request, response);
 	    if (!currentUser.isAuthenticated())
 	        return false;
@@ -46,8 +46,7 @@ public class AuthorizeFilter extends AuthorizationFilter {
 	        return true;
 	    }else{
 	        return false;
-	    }*/
-		return true;
+	    }
 	}
 
 }

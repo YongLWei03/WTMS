@@ -29,6 +29,7 @@ import com.wtms.service.UserService;
 public class AuthorizationRealm extends AuthorizingRealm {
 	static RoleService roleService = new RoleService();
 	static PermissionService permissionService = new PermissionService();
+	static UserService userService = new UserService();
 	/** 
      * 添加角色 
      * @param username 
@@ -85,7 +86,7 @@ public class AuthorizationRealm extends AuthorizingRealm {
 	protected AuthenticationInfo doGetAuthenticationInfo(
 			AuthenticationToken authcToken) throws AuthenticationException {
 		UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-		User admin = UserService.getByUsername(token.getUsername());
+		User admin = userService.getByUsername(token.getUsername());
 	    if (admin != null) {
 	        if(!admin.getPwd().equals(String.valueOf(token.getPassword()))){
 	            throw new AuthenticationException("密码错误");

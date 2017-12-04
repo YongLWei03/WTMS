@@ -1,5 +1,7 @@
 package com.wtms.service;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Page;
 import com.wtms.common.model.User;
 
@@ -23,8 +25,9 @@ public class UserService {
 		new User().setName("guoce").setPositionId("1").save();
 	}
 
-	public static User getByUsername(String username) {
-		return User.dao.find("select * from wf_user where username='"+username+"'").get(0);
+	public User getByUsername(String username) {
+		List<User> userList = dao.find("select * from wf_user where username='"+username+"'");
+		return userList.get(0);
 	}
 
 }
