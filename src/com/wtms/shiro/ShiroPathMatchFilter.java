@@ -64,8 +64,8 @@ public class ShiroPathMatchFilter extends AccessControlFilter {
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
 		log.info("onAccessDenied");  
-        setLoginUrl("/auth/login");  
-//        redirectToLogin(request,response);  
+        setLoginUrl("/user/login");  
+        redirectToLogin(request,response);  
         return false;  
 	}
 

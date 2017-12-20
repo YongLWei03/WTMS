@@ -1,15 +1,13 @@
 package com.wtms.bean;
 
-import com.jfinal.json.Json;
-
 public class MessageBean {
-	protected String code;
+	protected Integer code;
 	protected String message;
-	protected Json data;
-	public String getCode() {
+	protected Object data;
+	public Integer getCode() {
 		return code;
 	}
-	public MessageBean setCode(String code) {
+	public MessageBean setCode(Integer code) {
 		this.code = code;
 		return(this);
 	}
@@ -20,10 +18,10 @@ public class MessageBean {
 		this.message = message;
 		return(this);
 	}
-	public Json getData() {
+	public Object getData() {
 		return data;
 	}
-	public MessageBean setData(Json data) {
+	public MessageBean setData(Object data) {
 		this.data = data;
 		return(this);
 	}

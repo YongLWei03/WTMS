@@ -9,10 +9,6 @@ import com.wtms.common.model.Role;
  * @author guoce
  *
  */
-/**
- * @author guoce
- *
- */
 public class RoleService {
 	
 	private static final Role dao = new Role().dao();

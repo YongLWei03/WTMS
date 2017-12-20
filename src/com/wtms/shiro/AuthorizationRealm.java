@@ -98,5 +98,5 @@ public class AuthorizationRealm extends AuthorizingRealm {
 	        throw new AuthenticationException("用户不存在");
 	    }
 	}
-
+	
 }
