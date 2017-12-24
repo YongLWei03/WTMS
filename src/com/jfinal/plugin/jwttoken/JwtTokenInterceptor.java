@@ -1,6 +1,7 @@
 package com.jfinal.plugin.jwttoken;
 
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,6 +58,12 @@ public class JwtTokenInterceptor implements Interceptor {
         IJwtAble me = (IJwtAble) request.getAttribute("me");
         if (null != me) return me;
         String authHeader = request.getHeader(JwtKit.header);
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            System.out.println("key:"+key+" value:" +value);
+        }
         if (StrKit.isBlank(authHeader) || authHeader.length() < JwtKit.tokenPrefix.length()) return null;
         String authToken = authHeader.substring(JwtKit.tokenPrefix.length());
         String jwtUser = JwtKit.getJwtUser(authToken);                      // 从token中解析出jwtAble

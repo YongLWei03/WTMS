@@ -19,6 +19,8 @@ import com.jfinal.plugin.jwttoken.JwtTokenInterceptor;
 import com.jfinal.plugin.jwttoken.JwtTokenPlugin;
 import com.jfinal.template.Engine;
 import com.wtms.controller.HomeController;
+import com.wtms.controller.MenuController;
+import com.wtms.service.MenuService;
 import com.wtms.service.UserService;
 
 /**
@@ -41,7 +43,6 @@ public class DemoConfig extends JFinalConfig {
 		 * 特别注意：Eclipse 之下建议的启动方式
 		 */
 		JFinal.start("WebRoot", 8081, "/");
-
 		/**
 		 * 特别注意：IDEA 之下建议的启动方式，仅比 eclipse 之下少了最后一个参数
 		 */
@@ -63,7 +64,8 @@ public class DemoConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 //		me.add("/", IndexController.class, "/index");	// 第三个参数为该Controller的视图存放路径
 		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
-		me.add("/user",HomeController.class);
+		me.add("/",HomeController.class);
+		me.add("/menus",MenuController.class);
 	}
 	
 	public void configEngine(Engine me) {
@@ -92,7 +94,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add(arp);
 		
 		//配置JwtToken插件
-		me.add(new JwtTokenPlugin(UserService.me));
+		me.add(new JwtTokenPlugin(new UserService()));
 	}
 	
 	/**
@@ -108,5 +110,9 @@ public class DemoConfig extends JFinalConfig {
 	 */
 	public void configHandler(Handlers me) {
 		
+	}
+	
+	public void afterJFinalStart(){
+		UserService.addUserInfo();
 	}
 }

@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class JwtKit {
 
-    public static String header = "Authorization";  // 默认请求头标识符
+    public static String header = "X-Token";  // 默认请求头标识符
     public static String tokenPrefix = "Bearer ";    // 默认token前缀
     public static String secret = "default";         // 默认私钥
     public static Long expiration = 604800L;          // 默认失效时间(秒)

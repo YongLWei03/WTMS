@@ -12,6 +12,8 @@ public class UserBean implements IJwtAble {
     private String password;
  
     private List<String> _roles;
+    
+    String role1 ="user:query,edit";
  
     private List<String> _forces;
     
