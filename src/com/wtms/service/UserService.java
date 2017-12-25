@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import com.jfinal.kit.Kv;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.jwttoken.IJwtAble;
 import com.jfinal.plugin.jwttoken.IJwtUserService;
 import com.wtms.bean.UserBean;
@@ -38,16 +39,14 @@ public class UserService implements IJwtUserService{
 			store.set(user.getUsername(),new UserBean().setRoles(roles_v).setForces(forces_v).setUserName(user.getUsername()).setPassword(user.getPwd()));
 		}
     }
-	public Page<User> paginate(int pageNumber, int pageSize) {
-		return dao.paginate(pageNumber, pageSize, "select *", "from wf_user order by id asc");
-	}
 	
 	public Integer total(){
 		Integer totalCount = Db.queryInt("select count(*) from wf_user");
 		return totalCount;
 	}
-	public Page<User> findAll(int page,int limit){
-		Page<User> users = dao.paginate(page, limit, "select *","from wf_user");
+	public Page<Record> findAll(int page,int limit){
+		Page<Record> users = Db.paginate(page, limit, "select wu.*,wp.name positionName,wd.name departmentName",
+				"from wf_user wu,wf_position wp,wf_department wd where wu.departmentId = wd.id and wu.positionId = wp.id");
 		return users;
 	}
 	public User findById(int id) {

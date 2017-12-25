@@ -9,6 +9,10 @@ import com.wtms.common.model.Brole;
 import com.wtms.common.model.Position;
 import com.wtms.service.BroleService;
 
+/**
+ * @author guoce
+ * 业务角色管理
+ */
 public class BroleController extends Controller{
 	static BroleService brolesService = new BroleService();
 //	@Before(JwtTokenInterceptor.class)
@@ -16,13 +20,13 @@ public class BroleController extends Controller{
 		Integer totalCount = brolesService.total();
 		HashMap<String,Integer> data= new HashMap<String,Integer>();
 		data.put("total", totalCount);
-		renderJson(new MessageBean().setCode(1).setMessage("管理_查询全部").setData(data));
+		renderJson(new MessageBean().setCode(1).setMessage("业务角色_查询全部").setData(data));
 	}
 	
 	public void index() {
 		Integer page = getParaToInt("_page");
 		Integer limit = getParaToInt("_limit");
 		List<Brole> Broles = brolesService.findAll(page,limit).getList();
-		renderJson(new MessageBean().setCode(1).setMessage("岗位管理_查询全部").setData(Broles));
+		renderJson(new MessageBean().setCode(1).setMessage("业务角色_查询全部").setData(Broles));
 	}
 }
