@@ -42,6 +42,14 @@ public class UserService implements IJwtUserService{
 		return dao.paginate(pageNumber, pageSize, "select *", "from wf_user order by id asc");
 	}
 	
+	public Integer total(){
+		Integer totalCount = Db.queryInt("select count(*) from wf_user");
+		return totalCount;
+	}
+	public Page<User> findAll(int page,int limit){
+		Page<User> users = dao.paginate(page, limit, "select *","from wf_user");
+		return users;
+	}
 	public User findById(int id) {
 		return dao.findById(id);
 	}

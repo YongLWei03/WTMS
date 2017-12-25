@@ -1,8 +1,6 @@
 package com.demo.common;
 
 import com.demo.blog.BlogController;
-import com.wtms.common.model._MappingKit;
-import com.demo.index.IndexController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -10,17 +8,19 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
-import com.jfinal.ext.interceptor.Restful;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.plugin.jwttoken.AuthInterceptor;
-import com.jfinal.plugin.jwttoken.JwtTokenInterceptor;
 import com.jfinal.plugin.jwttoken.JwtTokenPlugin;
 import com.jfinal.template.Engine;
+import com.wtms.common.model._MappingKit;
+import com.wtms.controller.BroleController;
+import com.wtms.controller.DepartmentController;
 import com.wtms.controller.HomeController;
 import com.wtms.controller.MenuController;
-import com.wtms.service.MenuService;
+import com.wtms.controller.PositionController;
+import com.wtms.controller.UserController;
 import com.wtms.service.UserService;
 
 /**
@@ -66,6 +66,11 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/blog", BlogController.class);			// 第三个参数省略时默认与第一个参数值相同，在此即为 "/blog"
 		me.add("/",HomeController.class);
 		me.add("/menus",MenuController.class);
+		me.add("/users",UserController.class);
+		me.add("/positions",PositionController.class);
+		me.add("/departments",DepartmentController.class);
+		me.add("/broles",BroleController.class);
+		me.add("/roles",BroleController.class);
 	}
 	
 	public void configEngine(Engine me) {

@@ -2,7 +2,9 @@ package com.wtms.service;
 
 import java.util.List;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.wtms.common.model.Brole;
 import com.wtms.common.model.Role;
 
 /**
@@ -41,6 +43,13 @@ public class RoleService {
 		return Role.dao.find("SELECT r.* FROM wf_role r");
 	}
 
-	
+	public Integer total(){
+		Integer totalCount = Db.queryInt("select count(*) from wf_brole");
+		return totalCount;
+	}
+	public Page<Role> findAll(int page,int limit){
+		Page<Role> broles = dao.paginate(page, limit,"select id,name "," from wf_brole");
+		return broles;
+	}
 
 }
