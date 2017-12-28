@@ -8,6 +8,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
+import com.jfinal.ext.interceptor.Restful;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -20,6 +21,7 @@ import com.wtms.controller.DepartmentController;
 import com.wtms.controller.HomeController;
 import com.wtms.controller.MenuController;
 import com.wtms.controller.PositionController;
+import com.wtms.controller.RoleController;
 import com.wtms.controller.UserController;
 import com.wtms.service.UserService;
 
@@ -70,7 +72,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/positions",PositionController.class);
 		me.add("/departments",DepartmentController.class);
 		me.add("/broles",BroleController.class);
-		me.add("/roles",BroleController.class);
+		me.add("/roles",RoleController.class);
 	}
 	
 	public void configEngine(Engine me) {
@@ -106,8 +108,8 @@ public class DemoConfig extends JFinalConfig {
 	 * 配置全局拦截器
 	 */
 	public void configInterceptor(Interceptors me) {
-//		me.add(new Restful());
 		me.add(new AuthInterceptor());
+//		me.add(new Restful());
 	}
 	
 	/**

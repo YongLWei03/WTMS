@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.wtms.common.model.Department;
 import com.wtms.common.model.Position;
 import com.wtms.common.model.User;
 
@@ -19,4 +20,7 @@ public class PositionService{
 		return positions;
 	}
 	
+	public List<Position> query(){
+		return dao.find("select wd.id,wd.name from wf_position wd");
+	}
 }

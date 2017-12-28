@@ -1,5 +1,7 @@
 package com.wtms.service;
 
+import java.util.List;
+
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
 import com.wtms.common.model.Department;
@@ -16,4 +18,7 @@ public class DepartmentService{
 		return departments;
 	}
 	
+	public List<Department> query(){
+		return dao.find("select wd.id,wd.name from wf_department wd");
+	}
 }

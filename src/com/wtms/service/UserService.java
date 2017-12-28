@@ -49,6 +49,10 @@ public class UserService implements IJwtUserService{
 				"from wf_user wu,wf_position wp,wf_department wd where wu.departmentId = wd.id and wu.positionId = wp.id");
 		return users;
 	}
+	public Record findUserInfoById(int id) {
+		return Db.findFirst("select wu.*,wp.name positionName,wd.name departmentName from wf_user wu,wf_position wp,wf_department wd where wu.departmentId = wd.id and wu.positionId = wp.id and wu.id="+id);
+	}
+	
 	public User findById(int id) {
 		return dao.findById(id);
 	}

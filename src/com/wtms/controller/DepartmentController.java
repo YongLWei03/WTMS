@@ -25,4 +25,9 @@ public class DepartmentController extends Controller{
 		List<Department> departments = departmentService.findAll(page,limit).getList();
 		renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(departments));
 	}
+	
+	public void query() {
+		List<Department> departments = departmentService.query();
+		renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(departments));
+	}
 }

@@ -4,8 +4,11 @@ import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.wtms.common.model.Brole;
+import com.wtms.common.model.Position;
 import com.wtms.common.model.Role;
+import com.wtms.common.model.UserRole;
 
 /**
  * @author guoce
@@ -51,5 +54,27 @@ public class RoleService {
 		Page<Role> broles = dao.paginate(page, limit,"select id,name "," from wf_brole");
 		return broles;
 	}
+	
+	public List<Role> query(){
+		return dao.find("select wd.id,wd.name from wf_brole wd");
+	}
+	
+	public List<Role> getRolesByUserId(Integer userId) {
+		return dao.find("SELECT wr.id,wr.role_name FROM wf.wf_user_role wur,wf_role wr where wr.id = wur.role_id and wur.user_id = '"+userId+"'");
+	}
+
+	public boolean createRolesForUser(Integer userid, String[] roleids) {
+		for (String roleId : roleids) {
+			System.out.println(userid+"  "+roleId);
+			new UserRole().setUserId(userid).setRoleId(Integer.parseInt(roleId)).save();
+		}
+		return true;
+	}
+
+	public boolean deleteByUserId(Integer userId) {
+		Db.delete("delete from wf_user_role where user_id="+userId);
+		return true;
+	}
+	
 
 }
