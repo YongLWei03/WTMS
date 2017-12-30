@@ -18,13 +18,13 @@ public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implement
 		return getInt("id");
 	}
 
-	public M setRoleName(java.lang.String roleName) {
-		set("role_name", roleName);
+	public M setName(java.lang.String name) {
+		set("name", name);
 		return (M)this;
 	}
 	
-	public java.lang.String getRoleName() {
-		return getStr("role_name");
+	public java.lang.String getName() {
+		return getStr("name");
 	}
 
 	public M setDescription(java.lang.String description) {
@@ -34,6 +34,15 @@ public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implement
 	
 	public java.lang.String getDescription() {
 		return getStr("description");
+	}
+
+	public M setRoleType(java.lang.String roleType) {
+		set("roleType", roleType);
+		return (M)this;
+	}
+	
+	public java.lang.String getRoleType() {
+		return getStr("roleType");
 	}
 
 	public M setStatus(java.lang.Integer status) {

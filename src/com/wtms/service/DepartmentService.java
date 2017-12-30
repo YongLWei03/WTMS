@@ -19,6 +19,6 @@ public class DepartmentService{
 	}
 	
 	public List<Department> query(){
-		return dao.find("select wd.id,wd.name from wf_department wd");
+		return dao.find("select * from wf_department wd");
 	}
 }

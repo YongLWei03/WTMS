@@ -39,7 +39,7 @@ public class AuthorizationRealm extends AuthorizingRealm {
         List<Role> roles = roleService.getByUsername(username);  
         if(roles!=null&&roles.size()>0){  
             for (Role role : roles) {  
-                info.addRole(role.getRoleName());  
+                info.addRole(role.getName());  
             }  
         }  
     }  

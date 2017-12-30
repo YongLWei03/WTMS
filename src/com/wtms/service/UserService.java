@@ -18,7 +18,7 @@ import com.wtms.common.model.User;
 
 public class UserService implements IJwtUserService{
 	private static final User dao = new User().dao();
-	private static Kv store = Kv.create();  //缓存所有用户角色和权限
+	public static Kv store = Kv.create();  //缓存所有用户角色和权限
 	static PermissionService permissionService = new PermissionService();
 	static RoleService roleService = new RoleService();
 	public static void addUserInfo() {
@@ -34,7 +34,7 @@ public class UserService implements IJwtUserService{
 		for (User user : users) {
 			List<Role> roles = roleService.getByUsername(user.getName());
 			List<Permission> permissions = permissionService.findPermissionByName(user.getName());  
-			List<String> roles_v = roles.stream().map(Role::getRoleName).collect(Collectors.toList()); 
+			List<String> roles_v = roles.stream().map(Role::getName).collect(Collectors.toList()); 
 			List<String> forces_v = permissions.stream().map(Permission::getPermission).collect(Collectors.toList());
 			store.set(user.getUsername(),new UserBean().setRoles(roles_v).setForces(forces_v).setUserName(user.getUsername()).setPassword(user.getPwd()));
 		}

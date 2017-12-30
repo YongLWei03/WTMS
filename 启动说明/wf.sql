@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2017-12-25 10:11:37
+Date: 2017-12-30 20:53:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,28 +40,128 @@ INSERT INTO `blog` VALUES ('5', 'test 4', 'test 4');
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_brole`;
 CREATE TABLE `wf_brole` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '业务角色表ID',
+  `name` varchar(255) NOT NULL COMMENT '角色名称',
+  `fstateIds` varchar(100) DEFAULT NULL COMMENT '缺陷状态，逗号分隔ID',
+  `workTicketStatesIds` varchar(100) DEFAULT NULL COMMENT '工作票状态，逗号分隔的ID',
+  `operateTicketStatesIds` varchar(100) DEFAULT NULL COMMENT '操作票状态，逗号分隔的ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_brole
 -- ----------------------------
+INSERT INTO `wf_brole` VALUES ('1', '值长', null, null, null);
+INSERT INTO `wf_brole` VALUES ('2', '操作人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('3', '监护人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('4', '值班负责人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('5', '工作票签收人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('6', '工作票许可人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('7', '签发人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('8', '工作负责人', null, null, null);
+INSERT INTO `wf_brole` VALUES ('9', '工作班成员', null, null, null);
+INSERT INTO `wf_brole` VALUES ('10', '工作联系人', null, null, null);
 
 -- ----------------------------
 -- Table structure for `wf_department`
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_department`;
 CREATE TABLE `wf_department` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(200) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '部门表ID',
+  `name` varchar(50) NOT NULL COMMENT '部门名称',
+  `type` varchar(200) NOT NULL COMMENT '类型，如部门，专业，值别，班组',
+  `parentId` int(10) NOT NULL COMMENT '父ID',
+  `hasChildren` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否有子节点',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_department
+-- ----------------------------
+INSERT INTO `wf_department` VALUES ('1', '运行部', '运行部', '0', '');
+INSERT INTO `wf_department` VALUES ('2', '检修部', '检修部', '0', '');
+INSERT INTO `wf_department` VALUES ('3', '燃机一值', '燃机一值', '1', '');
+INSERT INTO `wf_department` VALUES ('4', '燃机二值', '燃机二值', '1', '');
+INSERT INTO `wf_department` VALUES ('5', '燃机三值', '燃机三值', '1', '');
+INSERT INTO `wf_department` VALUES ('6', '燃机四值', '燃机四值', '1', '');
+INSERT INTO `wf_department` VALUES ('7', '燃机五值', '燃机五值', '1', '');
+INSERT INTO `wf_department` VALUES ('8', '检修部电气专业', '检修部电气专业', '2', '');
+
+-- ----------------------------
+-- Table structure for `wf_fault`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_fault`;
+CREATE TABLE `wf_fault` (
+  `id` int(10) NOT NULL,
+  `fnumber` varchar(50) NOT NULL COMMENT '缺陷单编号',
+  `fstate` int(2) NOT NULL COMMENT '缺陷单状态',
+  `flevelId` int(2) NOT NULL COMMENT '缺陷级别ID',
+  `userId` int(10) NOT NULL COMMENT '缺陷发现人ID',
+  `groupIds` varchar(50) NOT NULL COMMENT '运行值别，ID逗号分隔',
+  `teamIds` varchar(50) NOT NULL COMMENT '消缺班组，ID逗号分隔',
+  `phone` varchar(20) DEFAULT NULL COMMENT '缺陷发现人的联系电话',
+  `desc` varchar(200) DEFAULT NULL COMMENT '缺陷描述',
+  `comments` varchar(200) DEFAULT NULL COMMENT '备注',
+  `tjDate` datetime NOT NULL COMMENT '提交时间',
+  `yqjsDate` datetime NOT NULL COMMENT '要求结束时间',
+  `createTime` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of wf_department
+-- Records of wf_fault
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `wf_flevel`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_flevel`;
+CREATE TABLE `wf_flevel` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '缺陷级别ID',
+  `name` varchar(50) NOT NULL COMMENT '缺陷级别名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_flevel
+-- ----------------------------
+INSERT INTO `wf_flevel` VALUES ('1', '一类缺陷');
+INSERT INTO `wf_flevel` VALUES ('2', '二类缺陷');
+INSERT INTO `wf_flevel` VALUES ('3', '三类缺陷');
+INSERT INTO `wf_flevel` VALUES ('4', '其它缺陷');
+
+-- ----------------------------
+-- Table structure for `wf_fstate`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_fstate`;
+CREATE TABLE `wf_fstate` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '缺陷状态表ID',
+  `name` varchar(100) DEFAULT NULL COMMENT '缺陷状态名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_fstate
+-- ----------------------------
+INSERT INTO `wf_fstate` VALUES ('1', '已保存');
+INSERT INTO `wf_fstate` VALUES ('2', '已提交');
+INSERT INTO `wf_fstate` VALUES ('3', '已审核');
+
+-- ----------------------------
+-- Table structure for `wf_kks`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_kks`;
+CREATE TABLE `wf_kks` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT 'KKS表ID',
+  `name` varchar(100) NOT NULL COMMENT 'KKS名称',
+  `desc` varchar(200) NOT NULL DEFAULT '北京电厂' COMMENT 'KKS码描述',
+  `sid` varchar(50) NOT NULL DEFAULT 'HNJT' COMMENT '结构标识',
+  `parentId` int(10) NOT NULL COMMENT '父节点ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_kks
 -- ----------------------------
 
 -- ----------------------------
@@ -69,12 +169,12 @@ CREATE TABLE `wf_department` (
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_menu`;
 CREATE TABLE `wf_menu` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  `parentid` int(10) DEFAULT NULL,
-  `orderid` int(5) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '菜单表ID',
+  `name` varchar(50) NOT NULL COMMENT '菜单名称英文标识，前端路由name值',
+  `parentid` int(10) NOT NULL COMMENT '父级菜单ID，没有父级置0',
+  `orderid` int(5) NOT NULL COMMENT '菜单排序字段',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_menu
@@ -89,19 +189,36 @@ INSERT INTO `wf_menu` VALUES ('7', 'department', '2', '1');
 INSERT INTO `wf_menu` VALUES ('8', 'brole', '2', '5');
 INSERT INTO `wf_menu` VALUES ('9', 'home_index', '1', '1');
 INSERT INTO `wf_menu` VALUES ('10', 'manage', '3', '1');
+INSERT INTO `wf_menu` VALUES ('11', 'fstate', '2', '6');
+INSERT INTO `wf_menu` VALUES ('12', 'workTicketState', '2', '7');
+INSERT INTO `wf_menu` VALUES ('13', 'operateTicketState', '2', '8');
+
+-- ----------------------------
+-- Table structure for `wf_operateticketstate`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_operateticketstate`;
+CREATE TABLE `wf_operateticketstate` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '缺陷状态表ID',
+  `name` varchar(100) DEFAULT NULL COMMENT '缺陷状态名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_operateticketstate
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `wf_permission`
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_permission`;
 CREATE TABLE `wf_permission` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '权限表ID',
   `permission` varchar(50) NOT NULL,
-  `description` varchar(200) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT '1',
-  `category` varchar(50) DEFAULT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `url` varchar(50) DEFAULT NULL,
+  `description` varchar(200) NOT NULL COMMENT '权限中文描述',
+  `status` int(11) NOT NULL DEFAULT '1' COMMENT '状态，是否启用该权限',
+  `category` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `url` varchar(50) NOT NULL COMMENT '权限标识',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
@@ -123,9 +240,9 @@ INSERT INTO `wf_permission` VALUES ('9', 'permission_add', '权限管理-新增'
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_position`;
 CREATE TABLE `wf_position` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(200) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '岗位表ID',
+  `name` varchar(50) NOT NULL COMMENT '岗位名称',
+  `description` varchar(200) NOT NULL COMMENT '岗位描述',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
@@ -156,30 +273,40 @@ INSERT INTO `wf_position` VALUES ('18', '电气技术员', '电气技术员');
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_role`;
 CREATE TABLE `wf_role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(50) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色表ID',
+  `name` varchar(50) DEFAULT NULL COMMENT '角色名称',
   `description` varchar(200) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_role
 -- ----------------------------
-INSERT INTO `wf_role` VALUES ('1', '操作员', null, '1', '2017-12-17 19:27:40', null, null);
+INSERT INTO `wf_role` VALUES ('1', '值长', null, '1', '2017-12-28 14:01:02', null, null);
+INSERT INTO `wf_role` VALUES ('2', '操作人', null, '1', '2017-12-28 14:01:03', null, null);
+INSERT INTO `wf_role` VALUES ('3', '监护人', null, '1', '2017-12-28 14:01:03', null, null);
+INSERT INTO `wf_role` VALUES ('4', '值班负责人', null, '1', '2017-12-28 14:01:04', null, null);
+INSERT INTO `wf_role` VALUES ('5', '工作票签收人', null, '1', '2017-12-28 14:01:05', null, null);
+INSERT INTO `wf_role` VALUES ('6', '工作票许可人', null, '1', '2017-12-28 14:01:05', null, null);
+INSERT INTO `wf_role` VALUES ('7', '签发人', null, '1', '2017-12-28 14:01:06', null, null);
+INSERT INTO `wf_role` VALUES ('8', '工作负责人', null, '1', '2017-12-28 14:01:06', null, null);
+INSERT INTO `wf_role` VALUES ('9', '工作班成员', null, '1', '2017-12-28 14:01:07', null, null);
+INSERT INTO `wf_role` VALUES ('10', '工作联系人', null, '1', '2017-12-28 14:02:42', null, null);
 
 -- ----------------------------
 -- Table structure for `wf_role_menu`
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_role_menu`;
 CREATE TABLE `wf_role_menu` (
-  `id` int(10) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `role_id` int(10) NOT NULL,
-  `menu_id` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `menu_id` int(10) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_role_menu
@@ -216,28 +343,32 @@ INSERT INTO `wf_role_permission` VALUES ('1', '1', '3');
 -- ----------------------------
 DROP TABLE IF EXISTS `wf_user`;
 CREATE TABLE `wf_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) DEFAULT NULL,
-  `pwd` varchar(50) DEFAULT NULL,
-  `worknum` varchar(50) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `mobile` varchar(20) DEFAULT NULL,
-  `avatar` varchar(200) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `sex` char(1) DEFAULT NULL,
-  `departmentId` char(1) DEFAULT NULL,
-  `positionId` varchar(10) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户表ID',
+  `username` varchar(50) NOT NULL COMMENT '登录用户名',
+  `pwd` varchar(50) NOT NULL COMMENT '登录密码',
+  `worknum` varchar(50) NOT NULL COMMENT '工号',
+  `email` varchar(100) DEFAULT '' COMMENT '邮箱',
+  `mobile` varchar(20) DEFAULT NULL COMMENT '手机号码',
+  `avatar` varchar(200) DEFAULT '' COMMENT '用户头像',
+  `name` varchar(100) NOT NULL COMMENT '姓名',
+  `sex` char(1) NOT NULL COMMENT '性别',
+  `departmentIds` varchar(50) NOT NULL COMMENT '部门多个ID逗号连接',
+  `broleIds` varchar(50) NOT NULL COMMENT '业务角色多个ID逗号连接',
+  `roleIds` varchar(50) NOT NULL COMMENT '系统角色多个ID逗号连接',
   `status` int(11) NOT NULL DEFAULT '1',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_user
 -- ----------------------------
-INSERT INTO `wf_user` VALUES ('1', 'admin', '111', null, null, null, null, null, null, null, null, '1', null, null, null);
+INSERT INTO `wf_user` VALUES ('1', 'admin', '111', '111', null, '15010801461', null, 'admin', '1', '1', '', '1', '1', '2017-12-27 10:20:40', '2017-12-27 10:20:43', '2017-12-27 10:20:47');
+INSERT INTO `wf_user` VALUES ('2', '李白', '111', '9527', '', null, '', '李白', '1', '1', '', '2', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `wf_user` VALUES ('3', '杜甫', '1', '87', '', null, '', '杜甫', '1', '1', '', '4', '1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `wf_user` VALUES ('4', '白居易', '111', '888', '', null, '', '白居易', '1', '1', '', '6', '1', '2017-12-28 18:42:31', '2017-12-28 18:42:31', '2017-12-28 18:42:31');
 
 -- ----------------------------
 -- Table structure for `wf_user_role`
@@ -248,9 +379,33 @@ CREATE TABLE `wf_user_role` (
   `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of wf_user_role
 -- ----------------------------
 INSERT INTO `wf_user_role` VALUES ('1', '1', '1');
+INSERT INTO `wf_user_role` VALUES ('2', '2', '2');
+INSERT INTO `wf_user_role` VALUES ('3', '2', '3');
+INSERT INTO `wf_user_role` VALUES ('4', '2', '4');
+INSERT INTO `wf_user_role` VALUES ('5', '2', '5');
+INSERT INTO `wf_user_role` VALUES ('6', '3', '5');
+INSERT INTO `wf_user_role` VALUES ('7', '3', '4');
+INSERT INTO `wf_user_role` VALUES ('8', '3', '3');
+INSERT INTO `wf_user_role` VALUES ('13', '4', '3');
+INSERT INTO `wf_user_role` VALUES ('14', '4', '4');
+INSERT INTO `wf_user_role` VALUES ('15', '4', '5');
+
+-- ----------------------------
+-- Table structure for `wf_workticketstate`
+-- ----------------------------
+DROP TABLE IF EXISTS `wf_workticketstate`;
+CREATE TABLE `wf_workticketstate` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '缺陷状态表ID',
+  `name` varchar(100) DEFAULT NULL COMMENT '缺陷状态名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of wf_workticketstate
+-- ----------------------------

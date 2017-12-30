@@ -31,7 +31,7 @@ public class RoleService {
 	}
 	
 	public void addUser() {
-		new Role().setRoleName("管理员").save();
+		new Role().setName("管理员").save();
 	}
 	/**
 	 * 根据用户名获取角色
@@ -60,7 +60,7 @@ public class RoleService {
 	}
 	
 	public List<Role> getRolesByUserId(Integer userId) {
-		return dao.find("SELECT wr.id,wr.role_name FROM wf.wf_user_role wur,wf_role wr where wr.id = wur.role_id and wur.user_id = '"+userId+"'");
+		return dao.find("SELECT wr.id,wr.name FROM wf.wf_user_role wur,wf_role wr where wr.id = wur.role_id and wur.user_id = '"+userId+"'");
 	}
 
 	public boolean createRolesForUser(Integer userid, String[] roleids) {

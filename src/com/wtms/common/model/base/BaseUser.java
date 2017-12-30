@@ -54,13 +54,13 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return getStr("email");
 	}
 
-	public M setMobile(java.lang.String mobile) {
-		set("mobile", mobile);
+	public M setPhone(java.lang.String phone) {
+		set("phone", phone);
 		return (M)this;
 	}
 	
-	public java.lang.String getMobile() {
-		return getStr("mobile");
+	public java.lang.String getPhone() {
+		return getStr("phone");
 	}
 
 	public M setAvatar(java.lang.String avatar) {

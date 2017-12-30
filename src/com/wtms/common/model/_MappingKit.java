@@ -23,6 +23,7 @@ public class _MappingKit {
 		arp.addMapping("wf_permission", "id", Permission.class);
 		arp.addMapping("wf_position", "id", Position.class);
 		arp.addMapping("wf_role", "id", Role.class);
+		arp.addMapping("wf_role_menu", "id", RoleMenu.class);
 		arp.addMapping("wf_role_permission", "id", RolePermission.class);
 		arp.addMapping("wf_user", "id", User.class);
 		arp.addMapping("wf_user_role", "id", UserRole.class);

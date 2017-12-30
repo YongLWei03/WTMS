@@ -1,5 +1,6 @@
 package com.wtms.controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import com.jfinal.kit.HttpKit;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.jwttoken.JwtTokenInterceptor;
 import com.wtms.bean.MessageBean;
+import com.wtms.bean.UserBean;
 import com.wtms.common.model.Role;
 import com.wtms.common.model.User;
 import com.wtms.service.RoleService;
@@ -35,6 +37,15 @@ public class UserController extends Controller{
 		Integer page = getParaToInt("_page");
 		Integer limit = getParaToInt("_limit");
 		List<Record> users = userService.findAll(page,limit).getList();
+		for (Record user : users) {
+			List<Role> roles= roleService.getRolesByUserId(user.get("id"));
+//			UserBean userBean = (UserBean) UserService.store.get(user.get("username"));
+			if(roles.size()>0){
+				user.set("roles", roles);
+			}else{
+				user.set("roles", "");
+			}
+		}
 		renderJson(new MessageBean().setCode(1).setMessage("人员管理_查询全部").setData(users));
 	}
 	public void query() {
