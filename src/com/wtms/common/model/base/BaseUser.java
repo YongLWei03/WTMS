@@ -54,13 +54,13 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return getStr("email");
 	}
 
-	public M setPhone(java.lang.String phone) {
-		set("phone", phone);
+	public M setMobile(java.lang.String mobile) {
+		set("mobile", mobile);
 		return (M)this;
 	}
 	
-	public java.lang.String getPhone() {
-		return getStr("phone");
+	public java.lang.String getMobile() {
+		return getStr("mobile");
 	}
 
 	public M setAvatar(java.lang.String avatar) {
@@ -90,22 +90,31 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return getStr("sex");
 	}
 
-	public M setDepartmentId(java.lang.String departmentId) {
-		set("departmentId", departmentId);
+	public M setDepartmentIds(java.lang.String departmentIds) {
+		set("departmentIds", departmentIds);
 		return (M)this;
 	}
 	
-	public java.lang.String getDepartmentId() {
-		return getStr("departmentId");
+	public java.lang.String getDepartmentIds() {
+		return getStr("departmentIds");
 	}
 
-	public M setPositionId(java.lang.String positionId) {
-		set("positionId", positionId);
+	public M setBroleIds(java.lang.String broleIds) {
+		set("broleIds", broleIds);
 		return (M)this;
 	}
 	
-	public java.lang.String getPositionId() {
-		return getStr("positionId");
+	public java.lang.String getBroleIds() {
+		return getStr("broleIds");
+	}
+
+	public M setRoleIds(java.lang.String roleIds) {
+		set("roleIds", roleIds);
+		return (M)this;
+	}
+	
+	public java.lang.String getRoleIds() {
+		return getStr("roleIds");
 	}
 
 	public M setStatus(java.lang.Integer status) {

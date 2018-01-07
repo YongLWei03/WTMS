@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Record;
 import com.wtms.bean.MessageBean;
 import com.wtms.common.model.Department;
 import com.wtms.common.model.Position;
@@ -21,15 +22,34 @@ public class DepartmentController extends Controller{
 		renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(data));
 	}
 	
-	public void index() {
-		Integer page = getParaToInt("_page");
-		Integer limit = getParaToInt("_limit");
-		List<Department> departments = departmentService.findAll(page,limit).getList();
-		renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(departments));
+	public void query() {
+		Integer parentId = getParaToInt("parentId");
+		if(parentId != null){
+			detail();
+		}else{
+			Integer page = getParaToInt("_page");
+			Integer limit = getParaToInt("_limit");
+			if(page == null || limit == null){
+				List<Department> departments = departmentService.query();
+				renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(departments));
+			}else{
+				List<Department> departments = departmentService.findAll(page,limit).getList();
+				renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(departments));
+			}
+			
+		}
 	}
 	
-	public void query() {
-		List<Department> departments = departmentService.query();
+	public void detail() {
+		Integer parentId = getParaToInt("parentId");
+		List<Record> departments = departmentService.queryByParentId(parentId);
+		for (Record record : departments) {
+			int id = record.get("id");
+			int countChild = departmentService.countChildByParentId(id);
+			if(countChild > 0){
+				record.set("hasChildren",true);
+			}
+		}
 		renderJson(new MessageBean().setCode(1).setMessage("部门管理_查询全部").setData(departments));
 	}
 	

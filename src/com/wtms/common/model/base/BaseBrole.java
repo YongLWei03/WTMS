@@ -27,4 +27,31 @@ public abstract class BaseBrole<M extends BaseBrole<M>> extends Model<M> impleme
 		return getStr("name");
 	}
 
+	public M setFstateIds(java.lang.String fstateIds) {
+		set("fstateIds", fstateIds);
+		return (M)this;
+	}
+	
+	public java.lang.String getFstateIds() {
+		return getStr("fstateIds");
+	}
+
+	public M setWorkTicketStatesIds(java.lang.String workTicketStatesIds) {
+		set("workTicketStatesIds", workTicketStatesIds);
+		return (M)this;
+	}
+	
+	public java.lang.String getWorkTicketStatesIds() {
+		return getStr("workTicketStatesIds");
+	}
+
+	public M setOperateTicketStatesIds(java.lang.String operateTicketStatesIds) {
+		set("operateTicketStatesIds", operateTicketStatesIds);
+		return (M)this;
+	}
+	
+	public java.lang.String getOperateTicketStatesIds() {
+		return getStr("operateTicketStatesIds");
+	}
+
 }

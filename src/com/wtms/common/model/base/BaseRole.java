@@ -36,15 +36,6 @@ public abstract class BaseRole<M extends BaseRole<M>> extends Model<M> implement
 		return getStr("description");
 	}
 
-	public M setRoleType(java.lang.String roleType) {
-		set("roleType", roleType);
-		return (M)this;
-	}
-	
-	public java.lang.String getRoleType() {
-		return getStr("roleType");
-	}
-
 	public M setStatus(java.lang.Integer status) {
 		set("status", status);
 		return (M)this;

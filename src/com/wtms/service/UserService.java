@@ -45,12 +45,12 @@ public class UserService implements IJwtUserService{
 		return totalCount;
 	}
 	public Page<Record> findAll(int page,int limit){
-		Page<Record> users = Db.paginate(page, limit, "select wu.*,wp.name positionName,wd.name departmentName",
-				"from wf_user wu,wf_position wp,wf_department wd where wu.departmentId = wd.id and wu.positionId = wp.id");
+		Page<Record> users = Db.paginate(page, limit, "select * ",
+				"from wf_user");
 		return users;
 	}
 	public Record findUserInfoById(int id) {
-		return Db.findFirst("select wu.*,wp.name positionName,wd.name departmentName from wf_user wu,wf_position wp,wf_department wd where wu.departmentId = wd.id and wu.positionId = wp.id and wu.id="+id);
+		return Db.findFirst("select wu.* from wf_user wu where wu.id="+id);
 	}
 	
 	public User findById(int id) {
@@ -59,10 +59,6 @@ public class UserService implements IJwtUserService{
 	
 	public void deleteById(int id) {
 		dao.deleteById(id);
-	}
-	
-	public void addUser() {
-		new User().setName("guoce").setPositionId("1").save();
 	}
 
 	public User getByUsername(String username) {

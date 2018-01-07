@@ -18,11 +18,17 @@ import com.jfinal.template.Engine;
 import com.wtms.common.model._MappingKit;
 import com.wtms.controller.BroleController;
 import com.wtms.controller.DepartmentController;
+import com.wtms.controller.FaultController;
+import com.wtms.controller.FlevelController;
+import com.wtms.controller.FstateController;
 import com.wtms.controller.HomeController;
+import com.wtms.controller.KksController;
 import com.wtms.controller.MenuController;
+import com.wtms.controller.OperateTicketStateController;
 import com.wtms.controller.PositionController;
 import com.wtms.controller.RoleController;
 import com.wtms.controller.UserController;
+import com.wtms.controller.WorkTicketStateController;
 import com.wtms.service.UserService;
 
 /**
@@ -44,7 +50,7 @@ public class DemoConfig extends JFinalConfig {
 		/**
 		 * 特别注意：Eclipse 之下建议的启动方式
 		 */
-		JFinal.start("WebRoot", 8081, "/");
+		JFinal.start("WebRoot", 8081, "/",30);
 		/**
 		 * 特别注意：IDEA 之下建议的启动方式，仅比 eclipse 之下少了最后一个参数
 		 */
@@ -73,6 +79,12 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/departments",DepartmentController.class);
 		me.add("/broles",BroleController.class);
 		me.add("/roles",RoleController.class);
+		me.add("/kks",KksController.class);
+		me.add("/fstates",FstateController.class);
+		me.add("/flevels",FlevelController.class); 
+		me.add("/faults",FaultController.class); 
+		me.add("/workTicketStates",WorkTicketStateController.class);
+		me.add("/operateTicketStates",OperateTicketStateController.class);
 	}
 	
 	public void configEngine(Engine me) {

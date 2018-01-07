@@ -23,10 +23,15 @@ public class BroleController extends Controller{
 		renderJson(new MessageBean().setCode(1).setMessage("业务角色_查询全部").setData(data));
 	}
 	
+	public void query() {
+		List<Brole> broles = brolesService.findAll();
+		renderJson(new MessageBean().setCode(1).setMessage("业务角色_查询全部").setData(broles));
+	}
+	
 	public void index() {
 		Integer page = getParaToInt("_page");
 		Integer limit = getParaToInt("_limit");
-		List<Brole> Broles = brolesService.findAll(page,limit).getList();
-		renderJson(new MessageBean().setCode(1).setMessage("业务角色_查询全部").setData(Broles));
+		List<Brole> broles = brolesService.findAll(page,limit).getList();
+		renderJson(new MessageBean().setCode(1).setMessage("业务角色_查询全部").setData(broles));
 	}
 }

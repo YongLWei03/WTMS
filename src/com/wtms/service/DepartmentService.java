@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.wtms.common.model.Department;
 
 public class DepartmentService{
@@ -20,5 +21,12 @@ public class DepartmentService{
 	
 	public List<Department> query(){
 		return dao.find("select * from wf_department wd");
+	}
+	public List<Record> queryByParentId(Integer parentId) {
+		return Db.find("select * from wf_department wd where wd.parentid = "+parentId);
+	}
+	public int countChildByParentId(int id) {
+		Integer childCount = Db.queryInt("select count(*) from wf_department where parentid = "+id);
+		return childCount;
 	}
 }
