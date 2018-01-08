@@ -30,4 +30,7 @@ public class FaultService{
 	public boolean deleteById(Integer faultId) {
 		return dao.deleteById(faultId);
 	}
+	public Flevel findById(Integer id) {
+		return Flevel.dao.findById(id);
+	}
 }

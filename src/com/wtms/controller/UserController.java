@@ -62,10 +62,15 @@ public class UserController extends Controller{
 		}
 	}
 	public void detail(int userId) {
+		Record user = detailById(userId);
+		renderJson(new MessageBean().setCode(1).setMessage("人员管理_查询单条").setData(user));
+	}
+	
+	public Record detailById(int userId){
 		Record user = userService.findUserInfoById(userId);
 		List<Role> roles = roleService.getRolesByUserId(userId);
 		user.set("roles", roles);
-		renderJson(new MessageBean().setCode(1).setMessage("人员管理_查询单条").setData(user));
+		return user;
 	}
 	
 	public void create() {

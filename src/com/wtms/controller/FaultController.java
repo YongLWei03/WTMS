@@ -14,11 +14,17 @@ import com.jfinal.plugin.activerecord.Record;
 import com.wtms.bean.MessageBean;
 import com.wtms.common.model.Department;
 import com.wtms.common.model.Fault;
+import com.wtms.common.model.Flevel;
+import com.wtms.common.model.Kks;
+import com.wtms.common.model.User;
 import com.wtms.common.model.Fault;
 import com.wtms.service.FaultService;
+import com.wtms.service.KksService;
 
 public class FaultController extends Controller{
 	static FaultService faultService = new FaultService();
+	static KksService kksService = new KksService();
+	static UserController userController = new UserController();
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	public void total() {
@@ -33,7 +39,12 @@ public class FaultController extends Controller{
 		Integer limit = getParaToInt("_limit");
 		List<Record> faults = faultService.findAll(page,limit).getList();
 		for (Record record : faults) {
-			
+			Record user = userController.detailById(record.getInt("userId"));
+			record.set("user", user);
+			Flevel flevel = faultService.findById(record.getInt("flevelId"));
+			record.set("flevel", flevel);
+			Kks kks = kksService.findById(record.getInt("kksId"));
+			record.set("kks", kks);
 		}
 		renderJson(new MessageBean().setCode(1).setMessage("缺陷管理_查询全部").setData(faults));
 	}

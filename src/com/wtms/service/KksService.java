@@ -33,4 +33,7 @@ public class KksService {
 		Db.delete("delete from wf_kks where parentid = "+kksId);
 		new Kks().setId(kksId).delete();
 	}
+	public Kks findById(Integer id) {
+		return dao.findById(id);
+	}
 }
