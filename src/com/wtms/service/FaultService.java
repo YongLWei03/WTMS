@@ -23,13 +23,17 @@ public class FaultService{
 	public List<Fault> query(){
 		return dao.find("select * from wf_fault wd");
 	}
-
-	public List<Flevel> queryFlever(){
-		return Flevel.dao.find("select * from wf_flevel fl");
+	public Fault queryFaultById(Integer faultId){
+		return dao.findById(faultId);
 	}
 	public boolean deleteById(Integer faultId) {
 		return dao.deleteById(faultId);
 	}
+
+	public List<Flevel> queryFlever(){
+		return Flevel.dao.find("select * from wf_flevel fl");
+	}
+
 	public Flevel findById(Integer id) {
 		return Flevel.dao.findById(id);
 	}
