@@ -1,5 +1,7 @@
 package com.demo.common;
 
+import java.io.FileNotFoundException;
+
 import com.demo.blog.BlogController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -18,7 +20,9 @@ import com.jfinal.template.Engine;
 import com.wtms.common.model._MappingKit;
 import com.wtms.controller.BroleController;
 import com.wtms.controller.DepartmentController;
+import com.wtms.controller.ExcelController;
 import com.wtms.controller.FaultController;
+import com.wtms.controller.FileUploadController;
 import com.wtms.controller.FlevelController;
 import com.wtms.controller.FstateController;
 import com.wtms.controller.HomeController;
@@ -85,6 +89,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/faults",FaultController.class); 
 		me.add("/workTicketStates",WorkTicketStateController.class);
 		me.add("/operateTicketStates",OperateTicketStateController.class);
+		me.add("/upload",FileUploadController.class);
 	}
 	
 	public void configEngine(Engine me) {
@@ -113,7 +118,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add(arp);
 		
 		//配置JwtToken插件
-		me.add(new JwtTokenPlugin(new UserService()));
+//		me.add(new JwtTokenPlugin(new UserService()));
 	}
 	
 	/**
@@ -133,5 +138,11 @@ public class DemoConfig extends JFinalConfig {
 	
 	public void afterJFinalStart(){
 		UserService.addUserInfo();
+//		try {
+//			ExcelController.test();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 	}
 }

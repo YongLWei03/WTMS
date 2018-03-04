@@ -19,11 +19,13 @@ public class _MappingKit {
 		arp.addMapping("blog", "id", Blog.class);
 		arp.addMapping("wf_brole", "id", Brole.class);
 		arp.addMapping("wf_department", "id", Department.class);
+		arp.addMapping("wf_equipments", "id", Equipments.class);
 		arp.addMapping("wf_fault", "id", Fault.class);
 		arp.addMapping("wf_flevel", "id", Flevel.class);
 		arp.addMapping("wf_fstate", "id", Fstate.class);
 		arp.addMapping("wf_kks", "id", Kks.class);
 		arp.addMapping("wf_menu", "id", Menu.class);
+		arp.addMapping("wf_operatecontent", "id", Operatecontent.class);
 		arp.addMapping("wf_operateticketstate", "id", Operateticketstate.class);
 		arp.addMapping("wf_permission", "id", Permission.class);
 		arp.addMapping("wf_position", "id", Position.class);

@@ -23,6 +23,10 @@ public class FaultService{
 	public List<Fault> query(){
 		return dao.find("select * from wf_fault wd");
 	}
+	
+	public Fault queryFaultById(Integer id){
+		return dao.findById(id);
+	}
 
 	public List<Flevel> queryFlever(){
 		return Flevel.dao.find("select * from wf_flevel fl");
@@ -33,4 +37,5 @@ public class FaultService{
 	public Flevel findById(Integer id) {
 		return Flevel.dao.findById(id);
 	}
+	
 }

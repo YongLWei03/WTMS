@@ -49,6 +49,21 @@ public class FaultController extends Controller{
 		renderJson(new MessageBean().setCode(1).setMessage("缺陷管理_查询全部").setData(faults));
 	}
 	
+	public void query(){
+		Integer id = getParaToInt(0);
+		Fault fault = faultService.queryFaultById(id);
+		Record result = fault.toRecord();
+		Record user = userController.detailById(fault.getUserId());
+		result.set("user", user);
+		Flevel flevel = faultService.findById(fault.getFlevelId());
+		result.set("flevel", flevel);
+		Kks kks = kksService.findById(fault.getFlevelId());
+		result.set("kks", kks);
+		renderJson(new MessageBean().setCode(1).setMessage("缺陷管理_查询单条").setData(result));
+	}
+	
+	 
+	
 	public void create() throws ParseException {
 		JSONObject para = JSON.parseObject(HttpKit.readData(getRequest()));
 		

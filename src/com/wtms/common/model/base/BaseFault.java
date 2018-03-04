@@ -126,4 +126,13 @@ public abstract class BaseFault<M extends BaseFault<M>> extends Model<M> impleme
 		return get("createTime");
 	}
 
+	public M setKksId(java.lang.Integer kksId) {
+		set("kksId", kksId);
+		return (M)this;
+	}
+	
+	public java.lang.Integer getKksId() {
+		return getInt("kksId");
+	}
+
 }
