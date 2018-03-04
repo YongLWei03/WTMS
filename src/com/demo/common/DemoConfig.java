@@ -54,7 +54,7 @@ public class DemoConfig extends JFinalConfig {
 		/**
 		 * 特别注意：Eclipse 之下建议的启动方式
 		 */
-		JFinal.start("WebRoot", 8081, "/",30);
+		JFinal.start("WebRoot", 8081, "/");
 		/**
 		 * 特别注意：IDEA 之下建议的启动方式，仅比 eclipse 之下少了最后一个参数
 		 */

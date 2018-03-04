@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.log4j.Logger;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Before;
@@ -29,6 +31,7 @@ public class UserController extends Controller{
 	static UserService userService = new UserService();
 	static RoleService roleService = new RoleService();
 	static BroleService broleService = new BroleService();
+	private final Logger logger = Logger.getLogger("");
 	@Before(JwtTokenInterceptor.class)
 	public void total() {
 		Integer totalCount = userService.total();
@@ -54,9 +57,14 @@ public class UserController extends Controller{
 					user.set("roles", "");
 				}
 				String broleIds = user.getStr("broleIds");
-				List<Brole> broles = broleService.getBrolesByBroleIds(broleIds);
-				List<String> brolenames = broles.stream().map(Brole::getName).collect(Collectors.toList());
-				user.set("broleIds", String.join(" | ", brolenames));
+				if(broleIds != null && broleIds.length() > 0) {
+					List<Brole> broles = broleService.getBrolesByBroleIds(broleIds);
+					List<String> brolenames = broles.stream().map(Brole::getName).collect(Collectors.toList());
+					user.set("broleIds", String.join(" | ", brolenames));
+				}else {
+					logger.info("用户："+user.get("id")+"  没有业务角色！");
+				}
+				
 			}
 			renderJson(new MessageBean().setCode(1).setMessage("人员管理_查询全部").setData(users));
 		}
@@ -69,7 +77,11 @@ public class UserController extends Controller{
 	public Record detailById(int userId){
 		Record user = userService.findUserInfoById(userId);
 		List<Role> roles = roleService.getRolesByUserId(userId);
-		user.set("roles", roles);
+		if(roles == null || roles.size() == 0) {
+			logger.info("用户："+userId+" 没有配置用户角色！");
+		}else {
+			user.set("roles", roles);
+		}
 		return user;
 	}
 	

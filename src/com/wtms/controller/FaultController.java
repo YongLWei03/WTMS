@@ -49,26 +49,24 @@ public class FaultController extends Controller{
 		renderJson(new MessageBean().setCode(1).setMessage("缺陷管理_查询全部").setData(faults));
 	}
 	
-	public void query(){
-		Integer id = getParaToInt(0);
-		Fault fault = faultService.queryFaultById(id);
-		Record result = fault.toRecord();
-		Record user = userController.detailById(fault.getUserId());
-		result.set("user", user);
-		Flevel flevel = faultService.findById(fault.getFlevelId());
-		result.set("flevel", flevel);
-		Kks kks = kksService.findById(fault.getFlevelId());
-		result.set("kks", kks);
-		renderJson(new MessageBean().setCode(1).setMessage("缺陷管理_查询单条").setData(result));
+
+	public void query() {
+		Integer faultId = getParaToInt(0);
+		Record fault = faultService.queryFaultById(faultId).toRecord();
+		Record user = userController.detailById(fault.getInt("userId"));
+		fault.set("user", user);
+		Flevel flevel = faultService.findById(fault.getInt("flevelId"));
+		fault.set("flevel", flevel);
+		Kks kks = kksService.findById(fault.getInt("kksId"));
+		fault.set("kks", kks);
+		renderJson(new MessageBean().setCode(1).setMessage("缺陷管理_查询单条").setData(fault));
 	}
-	
-	 
 	
 	public void create() throws ParseException {
 		JSONObject para = JSON.parseObject(HttpKit.readData(getRequest()));
 		
 		Fault fault = new Fault().setFnumber(System.currentTimeMillis()+"").setFstate(para.getInteger("fstate")).setFlevelId(para.getInteger("flevelId")).setUserId(para.getInteger("userId"))
-		.setTjDate(sdf.parse(para.getString("tjDate"))).setYqjsDate(sdf.parse(para.getString("yqjsDate"))).setDesc(para.getString("desc"))
+		.setTjDate(sdf.parse(para.getString("tjDate"))).setYqjsDate(sdf.parse(para.getString("yqjsDate"))).setDesc(para.getString("desc")).setKksId(para.getInteger("kksId"))
 		.setGroupIds(para.getString("groupIds")).setTeamIds(para.getString("teamIds")).setPhone(para.getString("phone")).setComments(para.getString("comments"));
 		Boolean isOk= fault.save();
 		int faultId = fault.getId();
@@ -79,7 +77,7 @@ public class FaultController extends Controller{
 		JSONObject para = JSON.parseObject(HttpKit.readData(getRequest()));
 		Integer faultId = para.getInteger("id");
 		new Fault().setId(faultId).setFstate(para.getInteger("fstate")).setFlevelId(para.getInteger("flevelId")).setUserId(para.getInteger("userId"))
-		.setTjDate(sdf.parse(para.getString("tjDate"))).setYqjsDate(sdf.parse(para.getString("yqjsDate"))).setDesc(para.getString("desc"))
+		.setTjDate(sdf.parse(para.getString("tjDate"))).setYqjsDate(sdf.parse(para.getString("yqjsDate"))).setDesc(para.getString("desc")).setKksId(para.getInteger("kksId"))
 		.setGroupIds(para.getString("groupIds")).setTeamIds(para.getString("teamIds")).setPhone(para.getString("phone")).setComments(para.getString("comments"))
 		.update();
 
