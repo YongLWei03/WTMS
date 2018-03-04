@@ -20,6 +20,7 @@ import com.jfinal.template.Engine;
 import com.wtms.common.model._MappingKit;
 import com.wtms.controller.BroleController;
 import com.wtms.controller.DepartmentController;
+import com.wtms.controller.EquipmentsController;
 import com.wtms.controller.ExcelController;
 import com.wtms.controller.FaultController;
 import com.wtms.controller.FileUploadController;
@@ -89,6 +90,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add("/faults",FaultController.class); 
 		me.add("/workTicketStates",WorkTicketStateController.class);
 		me.add("/operateTicketStates",OperateTicketStateController.class);
+		me.add("/equipments",EquipmentsController.class);
 		me.add("/upload",FileUploadController.class);
 	}
 	
@@ -118,7 +120,7 @@ public class DemoConfig extends JFinalConfig {
 		me.add(arp);
 		
 		//配置JwtToken插件
-//		me.add(new JwtTokenPlugin(new UserService()));
+		me.add(new JwtTokenPlugin(new UserService()));
 	}
 	
 	/**

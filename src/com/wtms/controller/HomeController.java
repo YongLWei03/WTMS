@@ -188,6 +188,18 @@ public class HomeController extends Controller{
 		bean9.setExport(true);
 		bean9.setUserId(1);
 		rightsList.add(bean9);
+		RightBean bean10 = new RightBean();
+		bean10.setId(10);
+		bean10.setRes("equipments");
+		bean10.setCreate(true);
+		bean10.setDel(true);
+		bean10.setDels(true);
+		bean10.setUpdate(true);
+		bean10.setList(true);
+		bean10.setDetail(true);
+		bean10.setExport(true);
+		bean10.setUserId(1);
+		rightsList.add(bean10);
 		userInfoMap.put("rights", rightsList);
 		renderJson(new MessageBean().setCode(1).setMessage("用户信息").setData(userInfoMap));
 		
