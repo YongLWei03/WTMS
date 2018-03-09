@@ -57,7 +57,7 @@ public class ExcelUtil {
      * @return voList
      * @throws RuntimeException
      */
-    public static <T> List<Map<String,ArrayList<T>>> importExcel(Class<T> clazz, InputStream inputStream,
+    public static <T> Map<String, ArrayList<T>> importExcel(Class<T> clazz, InputStream inputStream,
                                                 String pattern, ExcelLogs logs, String key, Integer... arrayCount) {
         Workbook workBook;
         try {
@@ -67,19 +67,34 @@ public class ExcelUtil {
             return null;
         }
         
-        List<Map<String,ArrayList<T>>> totalList = new ArrayList<Map<String,ArrayList<T>>>();
+        Map<String,ArrayList<T>> sheetMap = new HashMap<String,ArrayList<T>>();
         for (int sheetid = 0; sheetid < workBook.getNumberOfSheets(); sheetid++) {
-        	Map<String,ArrayList<T>> sheetMap = new HashMap<String,ArrayList<T>>();
+        	
         	ArrayList<T> list = new ArrayList<T>();
             Sheet sheet =  workBook.getSheetAt(sheetid);
             System.out.println(sheet.getSheetName());
             Iterator<Row> rowIterator = sheet.rowIterator();
             
+            String switchKey = ""; //开关
+            
+            String factory = "";  //工厂
+            String ticketNum = ""; //典型票号
+            String ticketType = ""; //操作票类型
+            String unit = "";	//单元
+            String set = "";	//机组
+            String profession = "";//专业
             String task = ""; //操作任务
             String switchName = ""; //开关名称
             String switchNum = "";	//开关编码
-            String duan = "";
-            String switchKey = "";
+            String QRcode = "";  //二维码
+            String sort = "";//票分类
+            String editor = "";//编写人
+            String editDate = ""; //编写日期
+            String reviewer = ""; //审核人
+            String reviewDate = ""; //审核日期
+            String approver = ""; //批准人
+            String approveDate = ""; //批准日期
+            
          
             try {
                 List<ExcelLog> logList = new ArrayList<ExcelLog>();
@@ -91,20 +106,58 @@ public class ExcelUtil {
                     
                     if (row.getRowNum() < 8){
                     	if(row.getRowNum()==2){
+                    		key = row.getCell(0).getStringCellValue();
+                    		factory = key;
+                    		System.out.println("工厂："+key);
+                    		key = row.getCell(1).getStringCellValue();
+                    		ticketNum = key;
+                    		System.out.println("典型票号："+key);
+                    		key = row.getCell(2).getStringCellValue();
+                    		ticketType = key;
+                    		System.out.println("操作票类型："+key);
+                    		key = row.getCell(3).getStringCellValue();
+                    		unit = key;
+                    		System.out.println("单元："+key);
+                    		key = row.getCell(4).getStringCellValue();
+                    		set = key;
+                    		System.out.println("机组："+key);
+                    		key = row.getCell(5).getStringCellValue();
+                    		profession = key;
+                    		System.out.println("专业："+key);
                     		key = row.getCell(6).getStringCellValue();
                     		task = key;
                     		System.out.println("操作任务："+key);
-                    		key = row.getCell(7).getStringCellValue();
+                    		key = row.getCell(8).getStringCellValue();
                     		switchName = key;
                     		System.out.println("开关名称："+key);
-                    		key = row.getCell(8).getStringCellValue();
+                    		key = row.getCell(9).getStringCellValue();
                     		switchNum = key;
                     		System.out.println("开关编码："+key);
-                    		key = row.getCell(9).getStringCellValue();
-                    		System.out.println("二维码："+key);
                     		key = row.getCell(10).getStringCellValue();
-                    		duan = key;
-                    		System.out.println("段："+key);
+                    		QRcode = key;
+                    		System.out.println("二维码："+key);
+                    	}else if(row.getRowNum()==5){
+                    		key = row.getCell(0).getStringCellValue();
+                    		sort = key;
+                    		System.out.println("票分类："+key);
+                    		key = row.getCell(1).getStringCellValue();
+                    		editor = key;
+                    		System.out.println("编写人："+key);
+                    		key = row.getCell(2).getStringCellValue();
+                    		editDate = key;
+                    		System.out.println("编写日期："+key);
+                    		key = row.getCell(3).getStringCellValue();
+                    		reviewer = key;
+                    		System.out.println("审核人："+key);
+                    		key = row.getCell(4).getStringCellValue();
+                    		reviewDate = key;
+                    		System.out.println("审核日期："+key);
+                    		key = row.getCell(5).getStringCellValue();
+                    		approver = key;
+                    		System.out.println("批准人："+key);
+                    		key = row.getCell(6).getStringCellValue();
+                    		approveDate = key;
+                    		System.out.println("批准日期："+key);
                     	}
                     	continue;
                     }else if (row.getRowNum() == 8) {
@@ -229,13 +282,18 @@ public class ExcelUtil {
             } catch (IllegalAccessException e) {
                 throw new RuntimeException(MessageFormat.format("can not instance class:{0}",
                         clazz.getSimpleName()), e);
-            }
-            switchKey = task + "^" + switchName + "^" + switchNum + "^" + duan ; //开关名称
+            } 
+            
+            switchKey = factory + "^" + ticketNum + "^" + ticketType + "^"+
+            		unit + "^" + set + "^" + profession + "^"+
+            		task + "^" + switchName + "^" + switchNum + "^"+
+            		QRcode + "^" + sort + "^" + editor +"^"+
+            		editDate + "^" + reviewer + "^" + reviewDate +"^"+
+            		approver + "^" + approveDate;
             sheetMap.put(switchKey, list);
-            totalList.add(sheetMap);
 		}
 
-        return totalList;
+        return sheetMap;
     }
     
     /**

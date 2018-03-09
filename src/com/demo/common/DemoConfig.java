@@ -1,5 +1,6 @@
 package com.demo.common;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 
 import com.demo.blog.BlogController;
@@ -11,6 +12,7 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.interceptor.Restful;
+import com.jfinal.kit.PathKit;
 import com.jfinal.kit.PropKit;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.druid.DruidPlugin;
@@ -69,6 +71,7 @@ public class DemoConfig extends JFinalConfig {
 		// 加载少量必要配置，随后可用PropKit.get(...)获取值
 		PropKit.use("a_little_config.txt");
 		me.setDevMode(PropKit.getBoolean("devMode", false));
+		me.setBaseUploadPath(PathKit.getWebRootPath()+File.separator+"upload");
 	}
 	
 	/**
@@ -141,7 +144,7 @@ public class DemoConfig extends JFinalConfig {
 	public void afterJFinalStart(){
 		UserService.addUserInfo();
 //		try {
-//			ExcelController.test();
+//			ExcelController.opTicketImport();
 //		} catch (FileNotFoundException e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

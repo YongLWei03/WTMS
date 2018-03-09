@@ -18,13 +18,13 @@ public abstract class BaseOperatecontent<M extends BaseOperatecontent<M>> extend
 		return getInt("id");
 	}
 
-	public M setOperateTicketId(java.lang.Integer operateTicketId) {
+	public M setOperateTicketId(java.lang.String operateTicketId) {
 		set("operateTicketId", operateTicketId);
 		return (M)this;
 	}
 	
-	public java.lang.Integer getOperateTicketId() {
-		return getInt("operateTicketId");
+	public java.lang.String getOperateTicketId() {
+		return getStr("operateTicketId");
 	}
 
 	public M setOptitemid(java.lang.Integer optitemid) {
@@ -52,6 +52,168 @@ public abstract class BaseOperatecontent<M extends BaseOperatecontent<M>> extend
 	
 	public java.lang.String getDangerPointIds() {
 		return getStr("dangerPointIds");
+	}
+
+	public M setSegment(java.lang.String segment) {
+		set("segment", segment);
+		return (M)this;
+	}
+	
+	public java.lang.String getSegment() {
+		return getStr("segment");
+	}
+
+	public M setFactory(java.lang.String factory) {
+		set("factory", factory);
+		return (M)this;
+	}
+	
+	public java.lang.String getFactory() {
+		return getStr("factory");
+	}
+
+	public M setTicketNum(java.lang.String ticketNum) {
+		set("ticketNum", ticketNum);
+		return (M)this;
+	}
+	
+	public java.lang.String getTicketNum() {
+		return getStr("ticketNum");
+	}
+
+	public M setTicketType(java.lang.String ticketType) {
+		set("ticketType", ticketType);
+		return (M)this;
+	}
+	
+	public java.lang.String getTicketType() {
+		return getStr("ticketType");
+	}
+
+	public M setUnit(java.lang.String unit) {
+		set("unit", unit);
+		return (M)this;
+	}
+	
+	public java.lang.String getUnit() {
+		return getStr("unit");
+	}
+
+	public M setSet(java.lang.String set) {
+		set("set", set);
+		return (M)this;
+	}
+	
+	public java.lang.String getSet() {
+		return getStr("set");
+	}
+
+	public M setProfession(java.lang.String profession) {
+		set("profession", profession);
+		return (M)this;
+	}
+	
+	public java.lang.String getProfession() {
+		return getStr("profession");
+	}
+
+	public M setTask(java.lang.String task) {
+		set("task", task);
+		return (M)this;
+	}
+	
+	public java.lang.String getTask() {
+		return getStr("task");
+	}
+
+	public M setSwitchName(java.lang.String switchName) {
+		set("switchName", switchName);
+		return (M)this;
+	}
+	
+	public java.lang.String getSwitchName() {
+		return getStr("switchName");
+	}
+
+	public M setSwitchNum(java.lang.String switchNum) {
+		set("switchNum", switchNum);
+		return (M)this;
+	}
+	
+	public java.lang.String getSwitchNum() {
+		return getStr("switchNum");
+	}
+
+	public M setQRcode(java.lang.String QRcode) {
+		set("QRcode", QRcode);
+		return (M)this;
+	}
+	
+	public java.lang.String getQRcode() {
+		return getStr("QRcode");
+	}
+
+	public M setSort(java.lang.String sort) {
+		set("sort", sort);
+		return (M)this;
+	}
+	
+	public java.lang.String getSort() {
+		return getStr("sort");
+	}
+
+	public M setEditor(java.lang.String editor) {
+		set("editor", editor);
+		return (M)this;
+	}
+	
+	public java.lang.String getEditor() {
+		return getStr("editor");
+	}
+
+	public M setEditDate(java.lang.String editDate) {
+		set("editDate", editDate);
+		return (M)this;
+	}
+	
+	public java.lang.String getEditDate() {
+		return getStr("editDate");
+	}
+
+	public M setReviewer(java.lang.String reviewer) {
+		set("reviewer", reviewer);
+		return (M)this;
+	}
+	
+	public java.lang.String getReviewer() {
+		return getStr("reviewer");
+	}
+
+	public M setReviewDate(java.lang.String reviewDate) {
+		set("reviewDate", reviewDate);
+		return (M)this;
+	}
+	
+	public java.lang.String getReviewDate() {
+		return getStr("reviewDate");
+	}
+
+	public M setApprover(java.lang.String approver) {
+		set("approver", approver);
+		return (M)this;
+	}
+	
+	public java.lang.String getApprover() {
+		return getStr("approver");
+	}
+
+	public M setApproveDate(java.lang.String approveDate) {
+		set("approveDate", approveDate);
+		return (M)this;
+	}
+	
+	public java.lang.String getApproveDate() {
+		return getStr("approveDate");
 	}
 
 }

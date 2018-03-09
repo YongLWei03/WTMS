@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.wtms.bean.StandardOperateTicketHeadBean;
 import com.wtms.common.model.Operatecontent;
 
 public class OperateTicketService{
@@ -30,21 +31,37 @@ public class OperateTicketService{
 	}
 	public String getMaxOperateTicketId(){
 		String otid = Db.queryStr("select substr(wf.operateTicketId,3) otid from wf_operatecontent wf order by wf.id desc limit 1");
-		return (otid==null||otid=="")?"1":otid;
+		return (otid==null||otid=="")?"0":otid;
 	}
 	
-	public boolean saveOperateContentByMap(Map m) {
-		Integer otid = (Integer) m.get("otid");
+	//删除操作票典型票
+	public int deleteOperateContentByMap(StandardOperateTicketHeadBean headBean) {
+		return Db.delete("delete from wf_operatecontent where segment = '" + headBean.getSegment()
+				+ "'  and TicketNum = '" + headBean.getTicketNum() + "' and task = '" + headBean.getTask() + "'");
+
+		// 要同步删除危控点关联
+
+	}
+	//保持导入的操作票典型票
+	public boolean saveOperateContentByMap(StandardOperateTicketHeadBean headBean, Map m) {
+		String otid = (String) m.get("otid");
 		Integer optitemid = Integer.parseInt((String) m.get("序号*"));
 		String dangerPointIds = m.get("操作内容*").toString();
-		String optItemContent ;//= m.get("关联危控号").toString();
-		if(m.get("关联危控号")==null){
+		String optItemContent;// = m.get("关联危控号").toString();
+		if (m.get("关联危控号") == null) {
 			optItemContent = "";
-		}else{
+		} else {
 			optItemContent = m.get("关联危控号").toString();
 		}
 		
-		return new Operatecontent().setOperateTicketId(otid).setOptitemid(optitemid)
+		return new Operatecontent().setSegment(headBean.getSegment()).setFactory(headBean.getFactory())
+				.setTicketNum(headBean.getTicketNum()).setTicketType(headBean.getTicketType())
+				.setUnit(headBean.getUnit()).setSet(headBean.getSet()).setProfession(headBean.getProfession())
+				.setTask(headBean.getTask()).setSwitchName(headBean.getSwitchName())
+				.setSwitchNum(headBean.getSwitchNum()).setQRcode(headBean.getQRcode()).setSort(headBean.getSort())
+				.setEditor(headBean.getEditor()).setEditDate(headBean.getEditDate()).setReviewer(headBean.getReviewer())
+				.setReviewDate(headBean.getReviewDate()).setApprover(headBean.getApprover())
+				.setApproveDate(headBean.getApproveDate()).setOperateTicketId(otid).setOptitemid(optitemid)
 				.setDangerPointIds(dangerPointIds).setOptItemContent(optItemContent).save();
 	}
 	

@@ -189,7 +189,7 @@ public class HomeController extends Controller{
 		bean9.setUserId(1);
 		rightsList.add(bean9);
 		RightBean bean10 = new RightBean();
-		bean10.setId(10);
+		bean10.setId(11);
 		bean10.setRes("equipments");
 		bean10.setCreate(true);
 		bean10.setDel(true);
