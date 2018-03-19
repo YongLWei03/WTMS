@@ -27,6 +27,14 @@ public class FileUploadController extends Controller {
         	}
             UploadFile file = getFile();
             System.out.println("--------file--------");
+            // 获取文件后缀名并转化为小写,用于校验
+            String fileName = file.getFileName();
+            String fileType = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length()).toLowerCase();
+            if(!fileType.equals("xlsx")&&!fileType.equals("xls")){
+            	resp.setCode(0);
+            	resp.setMessage("文件格式错误");
+            	return;
+            }
             File delfile = file.getFile();
             System.out.println("=========="+delfile.getPath());
             Map<String ,String> map = new HashMap<String, String>();
