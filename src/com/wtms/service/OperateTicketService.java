@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Page;
+import com.jfinal.plugin.activerecord.Record;
 import com.wtms.bean.StandardOperateTicketHeadBean;
 import com.wtms.common.model.Operatecontent;
 
@@ -13,7 +14,7 @@ public class OperateTicketService{
 	
 	public Integer total(){
 		Integer totalCount = Db.queryInt("select count(*) from wf_operatecontent");
-		return totalCount;
+		return totalCount; 
 	}
 	public List<Operatecontent> findAll(){
 		List<Operatecontent> operateContents = dao.find("select * from wf_operatecontent");
@@ -32,6 +33,10 @@ public class OperateTicketService{
 	public String getMaxOperateTicketId(){
 		String otid = Db.queryStr("select substr(wf.operateTicketId,3) otid from wf_operatecontent wf order by wf.id desc limit 1");
 		return (otid==null||otid=="")?"0":otid;
+	}
+	
+	public List<Record> buildEquipmentsNode(String segment){
+		return Db.find("SELECT DISTINCT ww.task,ww.switchName, ww.switchNum from wf_operatecontent ww where ww.segment ='"+segment+"'");
 	}
 	
 	//删除操作票典型票
@@ -64,5 +69,6 @@ public class OperateTicketService{
 				.setApproveDate(headBean.getApproveDate()).setOperateTicketId(otid).setOptitemid(optitemid)
 				.setDangerPointIds(dangerPointIds).setOptItemContent(optItemContent).save();
 	}
+
 	
 }

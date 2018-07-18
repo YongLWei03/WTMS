@@ -44,7 +44,7 @@ import com.wtms.service.UserService;
  * 
  * API引导式配置
  */
-public class DemoConfig extends JFinalConfig {
+public class MainConfig extends JFinalConfig {
 	
 	/**
 	 * 运行此 main 方法可以启动项目，此main方法可以放置在任意的Class类定义中，不一定要放于此
@@ -69,8 +69,8 @@ public class DemoConfig extends JFinalConfig {
 	 */
 	public void configConstant(Constants me) {
 		// 加载少量必要配置，随后可用PropKit.get(...)获取值
-		PropKit.use("a_little_config.txt");
-		me.setDevMode(PropKit.getBoolean("devMode", false));
+		PropKit.use("db.properties");
+		me.setDevMode(PropKit.getBoolean("devMode", true));
 		me.setBaseUploadPath(PathKit.getWebRootPath()+File.separator+"upload");
 	}
 	

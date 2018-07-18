@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import com.jfinal.core.Controller;
 import com.jfinal.kit.PathKit;
 import com.jfinal.upload.UploadFile;
@@ -13,9 +15,15 @@ import com.wtms.bean.MessageBean;
 import com.wtms.service.UserService;
 
 public class FileUploadController extends Controller {
+	
+//	private final Logger logger = LoggerFactory.getLogger(FileUploadController.class);
+	
+	private final Logger logger = Logger.getLogger(FileUploadController.class);
+	
 	static UserService userService = new UserService();
 
 	public void index(){
+		logger.error("文件导入开始");
 		MessageBean resp = new MessageBean();
         try {
         	String dirStr = PathKit.getWebRootPath()+File.separator+"upload";
